@@ -1,0 +1,50 @@
+<div class="row">
+  <!-- Filter -->
+  <div class="col-md-12">
+    <div class="card p-2">
+      <h6 class="text-center">Filter</h6>
+      <div class="row">
+        <div class="col-md-4 col-12">
+            <label>Collection</label>
+            <ng-multiselect-dropdown
+            [placeholder]="'Select Collection'"
+            [settings]="dropdownSettings"
+            [data]="allCollection"
+            [(ngModel)]="selectedCollection"
+            (onSelect)="onselectCollection($event)"
+            (onDeSelect)="onselectCollection($event)"
+            (onSelectAll)="onSelectAllCollection($event)"
+            (onDeSelectAll)="onSelectAllCollection($event)"
+            >
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <!-- Cards -->
+    <div class="row">
+      <div class="col-md-3 col-12" *ngFor="let product of productList">
+        <div class="card">
+          <img
+            class="card-img-top"
+            [src]="product.images[0]"
+            alt="Card image cap"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+
+            <a
+              [routerLink]="['/product/edit', product.key]"
+              class="btn btn-danger"
+              >Edit</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards End -->
+  </div>
+</div>
+<loader *ngIf="isLoading"></loader>

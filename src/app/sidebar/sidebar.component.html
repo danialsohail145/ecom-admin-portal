@@ -1,0 +1,38 @@
+
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a class="simple-text logo-mini">
+      <div class="logo-image-small">
+        <img src="assets/img/logo.png">
+      </div>
+    </a>
+    <a  class="simple-text logo-normal">
+     J E N T R E
+    </a>
+  </div>
+    <ul class="nav">
+        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+            <a *ngIf="!menuItem.path" class="mainMenuLink" (click)="menuClick(menuItem);">
+                <i class="nc-icon {{menuItem.icon}}"></i>
+                <p class="mainMenuText">{{menuItem.title}}</p>
+                <span *ngIf="!menuItem.path && !menuItem.hasSubMenu" class="nc-icon nc-minimal-down spanDropDown"></span>
+                <span *ngIf="menuItem.hasSubMenu" class="nc-icon nc-minimal-up spanDropDown"></span>
+              </a>
+              <a *ngIf="menuItem.path" [routerLink]="[menuItem.path]" class="mainMenuLink" (click)="resetMenu()">
+                <i class="nc-icon {{menuItem.icon}}"></i>
+                <p class="mainMenuText">{{menuItem.title}}</p>
+              </a>
+            <!-- Sub Menu -->
+            <ul class="nav mt-0" *ngIf="menuItem.hasSubMenu">
+              <li *ngFor="let subItem of menuItem.subMenu" routerLinkActive="active" class="{{menuItem.class}}">
+                <a [routerLink]="[subItem.path]" class="m-0 p-0 subMenuLink">
+                  <i class="nc-icon {{subItem.icon}}"></i>
+                  <p>{{subItem.title}}</p>
+                </a>
+              </li>
+            </ul>
+            <!-- Sub Menu Ends -->
+        </li>
+
+    </ul>
+</div>

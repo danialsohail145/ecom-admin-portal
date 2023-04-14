@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-12">
+      <!-- Cards -->
+      <div class="row">
+          <div class="col-md-3 col-12" *ngFor="let sizeGuide of sizeGuideList">
+              <div class="card">
+                  <img class="card-img-top" [src]="sizeGuide.top" alt="Card image cap" />
+                  <div class="card-body">
+                    <h5 class="card-title">{{sizeGuide.name}}</h5>
+                  
+                    <a [routerLink]="[ '/product/editSizeGuide', sizeGuide.key ]" class="btn btn-danger">Edit</a>
+                  </div>
+                </div>
+          </div>
+      </div>
+     
+      <!-- Cards End -->
+    </div>
+  </div>
+  <loader *ngIf="isLoading"></loader>
+  

@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12 mh-100">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">{{pageTitle}}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="sizeGuideForm" (ngSubmit)="onSaveSizeGuide()">
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label>Size Guide Name</label>
+              <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Size Guide Name"
+                    formControlName="name"
+                  />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12" *ngIf="topSizeControl.valid">
+              <div class="imageCard">
+                <img [src]="topSizeControl.value" />
+              </div>
+            </div>
+            <div class="col-md-6 col-12" *ngIf="bottomSizeControl.valid">
+              <div class="imageCard">
+                <img [src]="bottomSizeControl.value" />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-12">
+              <label>Top Image</label>
+              <input
+                class="form-control"
+                type="file"
+                name="topSize"
+                formControlName="topFile"
+                (change)="onSizeUpload($event, 'TOP', topSizeControl)"
+                accept="image/png, image/jpeg"
+              />
+            </div>
+
+            <div class="col-md-6 col-12">
+              <label>Bottom Image</label>
+
+              <input
+                class="form-control"
+                type="file"
+                name="bottomSize"
+                formControlName="bottomFile"
+                (change)="onSizeUpload($event, 'BOTTOM', bottomSizeControl)"
+                accept="image/png, image/jpeg"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-danger btn-round" [disabled]="sizeGuideForm.invalid">
+                {{pageTitle}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<loader *ngIf="isLoading"></loader>

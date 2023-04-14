@@ -1,0 +1,27 @@
+<div class="container-login"> 
+    <div class="wrap-login"> 
+      <form > 
+
+        <!-- LOGO --> 
+        <!--<img class="avatar"src="img/user.svg" alt="" align="center"> -->
+        <img class="avatar"src="./assets/img/favicon.png" alt="" align="center">
+          <!-- USUARIO --> 
+        <div class="wrap-input100"> 
+          <input class="input100" type="text" name="txtUsuario" placeholder="Username" [(ngModel)]="username">   
+          <span class="focus-efecto"></span> 
+        </div> 
+        <!-- CONTRASEÑA --> 
+        <div class="wrap-input100"> 
+          <input class="input100" type="password" name="txtPassword" placeholder="Password" [(ngModel)]="password"> 
+          <span class="focus-efecto"></span> 
+        </div> 
+        <!-- BOTÓN --> 
+        <div class="container-login-form-btn"> 
+          <div class="wrap-login-form-btn"> 
+            <div class="login-form-bgbtn"></div> 
+            <button type="submit" name="btnEntrar" class="login-form-btn" (click)="loginUser()">Login</button> 
+          </div> 
+        </div> 
+      </form> 
+    </div> 
+  </div> 

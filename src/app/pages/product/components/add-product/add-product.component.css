@@ -1,0 +1,24 @@
+.productImgContainer{
+    padding: 8px;
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+.productImgContainer > img {
+    height: 100px;
+    margin: 5px;height: 100px;
+    margin: 5px;
+}
+.inner-img-container{
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+}
+.cross-img{
+    cursor: pointer;
+    position: absolute;
+    color: white;
+    z-index: 1;
+    right: 15px;
+    top: 5px;
+}

@@ -1,0 +1,343 @@
+<div class="row">
+  <div class="col-md-12 mh-100">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">{{ pageTitle }}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="addProductForm" (ngSubmit)="saveProduct()">
+          <!-- Collection Detail -->
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div class="form-group">
+                <label> Select Collection </label>
+                <select class="form-control" formControlName="collectionId">
+                  <option
+                    *ngFor="let collection of allCollection"
+                    [value]="collection.id"
+                  >
+                    {{ collection.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Product Name, Code, Price -->
+          <div class="row">
+            <div class="col-md-4 pr-1">
+              <div>
+                <label>Product Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="name"
+                  placeholder="Product Name"
+                />
+              </div>
+            </div>
+            <div class="col-md-4 pr-1">
+              <div>
+                <label>Product Code</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="code"
+                  placeholder="Product Code"
+                />
+              </div>
+            </div>
+
+            <div class="col-md-4 pr-1">
+              <div>
+                <label>Product Price</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="price"
+                  placeholder="Product Price"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Top Description -->
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Top Description</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Top Description"
+                  formControlName="topDescription"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Main Description -->
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Product Description</label>
+                <textarea
+                  formControlName="mainDescription"
+                  class="form-control px-2 py-1"
+                  placeholder="Description"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <!-- Size -->
+          <div class="row" >
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Select Size</label>
+                <ng-multiselect-dropdown
+                  [placeholder]="'Select Size'"
+                  [settings]="dropdownSettings"
+                  [data]="sizeList"
+                  [formControl]="productSizeControl"
+                >
+                </ng-multiselect-dropdown>
+              </div>
+            </div>
+          </div>
+          <!-- Avalilabe Piece -->
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Avalilabe Piece</label>
+              </div>
+            </div>
+            <div class="col-md-10 pr-1 mx-auto">
+              <div *ngIf="availabePieceArrayValues.length > 0">
+                <table class="table table-striped">
+                  <thead class="text-danger">
+                    <tr>
+                      <th class="text-center">Piece</th>
+                      <th class="text-center">Price</th>
+                      <th class="text-center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container>
+                      <tr
+                        *ngFor="
+                          let piece of availabePieceArrayValues;
+                          index as i
+                        "
+                      >
+                        <td class="text-center">{{ piece.piece }}</td>
+                        <td class="text-center">{{ piece.price }}</td>
+                        <td class="text-center">
+                          <button
+                            type="button"
+                            class="btn btn-danger btn-round m-0"
+                            (click)="removeAvailabePiece(i)"
+                          >
+                            <i class="nc-icon nc-simple-remove"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <ng-container [formGroup]="availabePieceForm">
+              <div class="col-md-5 pr-1">
+                <div>
+                  <select class="form-control" formControlName="piece">
+                    <option *ngFor="let piece of pieces" [value]="piece">
+                      {{ piece }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Price"
+                    formControlName="price"
+                  />
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="col-md-2 pr-1">
+              <div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-round m-0"
+                    (click)="addAvailabePiece()"
+                  >
+                    <i class="nc-icon nc-simple-add"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Product Detail -->
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Product Detail</label>
+              </div>
+            </div>
+            <div class="col-md-8 pr-1 mx-auto mb-2">
+              <div *ngIf="productDetailArrayValues.length > 0">
+                <ul class="list-group">
+                  <li
+                    *ngFor="let detail of productDetailArrayValues; index as i"
+                  >
+                    <span class="font-weight-bold">{{ detail.heading }}:</span>
+                    {{ detail.description }}
+                    <span
+                      (click)="removeProductDetail(i)"
+                      class="mx-5 mt-5 cursor-pointer"
+                    >
+                      <i class="nc-icon nc-simple-remove cursor-pointer"></i>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <ng-container [formGroup]="productDetailForm">
+              <div class="col-md-5 pr-1">
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Heading"
+                    formControlName="heading"
+                  />
+                </div>
+              </div>
+              <div class="col-md-5 pr-1">
+                <div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Description"
+                    formControlName="description"
+                  />
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="col-md-2 pr-1">
+              <div>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-round m-0"
+                    (click)="addProductDetail()"
+                  >
+                    <i class="nc-icon nc-simple-add"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Size Guide -->
+          <div class="row mb-2">
+            <div class="col-md-12">
+              <label>Select Size</label>
+              <ng-multiselect-dropdown
+                [placeholder]="'Select Size Guide'"
+                [settings]="singleSelectdropdownSettings"
+                [data]="sizeGuideList"
+                [formControl]="sizeGuideContol"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+          <!-- Sale Detail -->
+          <div class="row" *ngIf="isEditForm">
+            <div class="col-md-6 col-12">
+              <div>
+                <label>Is On Sale</label>
+                <select class="form-control" formControlName="isOnSale">
+                  <option [value]="false">No</option>
+                  <option [value]="true">Yes</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6 col-12">
+              <div>
+                <label>Sale Price</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Sale Price"
+                  formControlName="salePrice"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- Is SOld -->
+          <div class="row" *ngIf="isEditForm">
+            <div class="col-md-12">
+              <div>
+                <label>Is Sold</label>
+                <select class="form-control" formControlName="isSold">
+                  <option [value]="false">No</option>
+                  <option [value]="true">Yes</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Product Images -->
+          <div class="row">
+            <div class="col-md-12">
+              <label>Select Product Image</label>
+              <div
+                class="productImgContainer"
+                *ngIf="productImagesArray.length > 0"
+              >
+                <ng-container
+                  *ngFor="let img of productImagesArray; let i = index"
+                >
+                  <div class="inner-img-container">
+                    <img [src]="img" width="150px" />
+                    <span class="cross-img">
+                      <i
+                        class="nc-icon nc-simple-remove"
+                        (click)="removeProductImg(i)"
+                      ></i
+                    ></span>
+                  </div>
+                </ng-container>
+              </div>
+              <input
+                type="file"
+                class="form-control"
+                name="productImages"
+                accept="image/png, image/jpeg"
+                (change)="onProductImageUpload($event)"
+              />
+            </div>
+          </div>
+
+          <!--  -->
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button
+                type="submit"
+                class="btn btn-danger btn-round"
+                [disabled]="addProductForm.invalid"
+              >
+                {{pageTitle}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<loader *ngIf="isLoading"></loader>

@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12 mh-100">
+    <div class="card card-user">
+      <div class="card-header">
+        <h5 class="card-title">{{pageTitle}}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="addCollectionForm" (ngSubmit) = "saveCollection()">
+          <div class="row">
+            <div class="col-md-12 pr-1">
+              <div class="form-group">
+                <label>Collection Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Collection Name"
+                  formControlName="name"
+                />
+              </div>
+            </div>
+            <div class="col-md-12 pr-1" *ngIf="isImageSelected">
+              <img [src]="fb" width="150px">
+            </div>
+            <div class="col-md-12 pr-1">
+              <div>
+                <label>Collection Image</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  placeholder="Collection Image"
+                  (change)="onFileSelected($event)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-danger btn-round">
+                {{pageTitle}}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<loader *ngIf="isLoading"></loader>
